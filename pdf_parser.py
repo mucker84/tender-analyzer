@@ -2,9 +2,14 @@ import pdfplumber
 import pytesseract
 import pdf2image
 from PIL import Image
+import os
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-POPPLER_PATH = r"C:\tmp\poppler\Library\bin"
+# lokálně Windows, na serveru Linux
+if os.name == "nt":
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    POPPLER_PATH = r"C:\tmp\poppler\Library\bin"
+else:
+    POPPLER_PATH = None
 
 def is_scanned(pdf_path: str) -> bool:
     with pdfplumber.open(pdf_path) as pdf:
