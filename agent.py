@@ -4,6 +4,12 @@ from company_profile import get_profile
 import json
 
 load_dotenv()
+import os
+import streamlit as st
+
+# funguje lokálně i na Streamlit Cloud
+if hasattr(st, "secrets") and "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 client = OpenAI()
 
 def analyze_tender(text: str) -> dict:
